@@ -1,0 +1,23 @@
+{
+  "name": "alfredoconnect",
+  "version": "0.0.1",
+  "description": "Driver station for Bluetooth serial communication.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlfredoElectronics/AlfredoConnect-Desktop.git"
+  },
+  "author": "Kaiz Akhtar",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AlfredoElectronics/AlfredoConnect-Desktop/issues"
+  },
+  "homepage": "https://github.com/AlfredoElectronics/AlfredoConnect-Desktop#readme",
+  "devDependencies": {
+    "electron": "^8.1.1"
+  }
+}
