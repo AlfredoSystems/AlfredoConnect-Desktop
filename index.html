@@ -27,18 +27,25 @@
         </div>
         <!-- <div class="row">
             <button class="btn waves-effect waves-light" id="w">W</button>
-        </div> -->
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s11">
-                        <textarea id="console-input" class="materialize-textarea"></textarea>
-                        <label for="console-input">Input</label>
+            </div> -->
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s11">
+                            <textarea id="console-input" class="materialize-textarea"></textarea>
+                            <label for="console-input">Input</label>
+                        </div>
+                        <a class="btn-large waves-effect waves-teal col s1">send<i class="material-icons right">send</i></a>
                     </div>
-                    <a class="btn-large waves-effect waves-teal col s1">send<i class="material-icons right">send</i></a>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                <h5>Gamepads</h5>
+                <ul class="collection with-header" id="gamepad-list">
+                </ul>
                 </div>
-            </form>
-        </div>
+            </div>
     </body>
     <script>window.$ = window.jQuery = require('./js/jquery-3.4.1.min.js');</script>
     <script src="./js/materialize.min.js"></script>

@@ -1,4 +1,5 @@
 const serialport = require('serialport');
+require('jquery-sortablejs');
 let port = null;
 
 function updatePorts() {
@@ -64,16 +65,39 @@ function consoleWrite(str) {
     $("#console").scrollTop($("#console").prop("scrollHeight"));
 }
 
+function updateGamepads() {
+    $("#gamepad-list").children().remove();
+    var noGamepadConnected = true;
+    Array.from(navigator.getGamepads()).forEach(function(gamepad) {
+        if (gamepad) {
+            $("#gamepad-list").append("<li class=\"collection-item\" id=\"gamepad\" style=\"white-space: nowrap; max-width: " + $("#gamepad-list").css("width") + "; overflow: hidden; text-overflow: ellipsis\">" + gamepad.id + "</li>");
+            noGamepadConnected = false;
+        }
+    });
+    if (noGamepadConnected) $("#gamepad-list").append("<li class=\"collection-item\" style=\"white-space: nowrap; max-width: " + $("#gamepad-list").css("width") + "; overflow: hidden; text-overflow: ellipsis\">Connect a controller or push a button.</li>");
+    $("#gamepad-list").children("#gamepad").click(function() {
+        if ($(this).hasClass("active")) $(this).removeClass("active");
+        else {
+            $("#gamepad-list").children("#gamepad").removeClass("active");
+            $(this).addClass("active");
+        }
+    });
+}
+
 $(document).ready(() => {
     updatePorts();
+    updateGamepads();
     $("#port-refresh").click(updatePorts);
     $("#port-open").click(openPort);
     $("#port-close").click(closePort);
-    $("#w").click(() => send("w"));
     $("#console-input").keydown((e) => {
         if (e.keyCode == 13 && !e.shiftKey) {
             e.preventDefault();    
             consoleSend();
         }
     });
+    $("#gamepad-list").sortable();
+    $(window).on("gamepadconnected", updateGamepads);
+    $(window).on("gamepaddisconnected", updateGamepads);
+    $(window).on("resize", () => $("#gamepad-list").children().css("max-width", $("#gamepad-list").css("width")));
 });
