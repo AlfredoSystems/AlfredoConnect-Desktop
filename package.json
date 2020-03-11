@@ -22,6 +22,8 @@
     "electron-rebuild": "^1.10.1"
   },
   "dependencies": {
+    "jquery": "^3.4.1",
+    "materialize-css": "^1.0.0",
     "serialport": "^8.0.7"
   }
 }
