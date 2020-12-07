@@ -36,17 +36,19 @@
                 </div>
             </form>
         </div>
-        <div class="row" id="console">
-            <span id="console-text" style="white-space: pre-wrap; height: 500px;"></span>
+        <div class="row" id="terminal">
+            <span id="terminal-info" style="white-space: pre-wrap"></span>
+            <div id="terminal-error-container" style="white-space: pre-wrap"></div>
+            <div id="terminal-text"></div>
         </div>
         <div class="row">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s11">
-                        <textarea id="console-input" class="materialize-textarea"></textarea>
-                        <label for="console-input">Input</label>
+                        <textarea id="terminal-input" class="materialize-textarea"></textarea>
+                        <label for="terminal-input">Input</label>
                     </div>
-                    <a class="btn-large waves-effect waves-teal col s1">
+                    <a class="btn-large waves-effect waves-teal col s1" id="terminal-send">
                         send<i class="material-icons right">send</i>
                     </a>
                 </div>
@@ -55,7 +57,7 @@
         <div class="row">
             <div class="col s4">
                 <h5>Gamepads</h5>
-                <ul class="collection with-header" id="gamepad-list">
+                <ul class="collection" id="gamepad-list">
                 </ul>
             </div>
             <canvas id="gamepad-state">

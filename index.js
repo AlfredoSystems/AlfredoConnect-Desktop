@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow} = require("electron");
 
 function createWindow() {
     let win = new BrowserWindow({
@@ -8,10 +8,10 @@ function createWindow() {
             nodeIntegration: true
         }
     });
-    win.loadFile('index.html');
+    win.loadFile("index.html");
 }
 app.whenReady().then(createWindow);
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit();
+app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") app.quit();
 });
-app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
+app.on("activate", () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });

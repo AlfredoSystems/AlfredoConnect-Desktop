@@ -7,12 +7,45 @@ body {
     background-color: #666;
 }
 
-#console {
+#terminal {
     height: 500px;
     background-color: #000;
+    font-family: "Courier New";
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+#terminal-text {
+    max-height: inherit;
+    white-space: pre-wrap;
+    padding: 0 10px;
     overflow-x: hidden;
     overflow-y: auto;
-    font-family: "Courier New";
+}
+
+#terminal-info {
+    padding: 0 10px;
+    color: black;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: #999;
+}
+
+#terminal-error-container {
+    display: grid;
+}
+
+#terminal-error {
+    padding: 0 10px;
+    border-bottom: 1px black solid;
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    height: auto;
+    background-color: #f88;
 }
 
 .materialize-textarea {
@@ -20,5 +53,9 @@ body {
 }
 
 .dropdown-content li {
+    color: #fff;
+}
+
+input {
     color: #fff;
 }

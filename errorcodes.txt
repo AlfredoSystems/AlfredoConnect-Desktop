@@ -1,0 +1,6 @@
+port-open-null: tried to open port with null id
+port-already-open: tried to open port that was already open
+port-open-fail: port failed to open, and any error on an already-opened port
+port-disconnected: port connection was dropped unintentionally
+port-close-null: tried to close a port when none is open
+port-write-closed: attempt to write to a port was unsuccessful
