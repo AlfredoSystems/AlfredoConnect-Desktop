@@ -13,6 +13,7 @@ let keysToRemoveSize = 0;
 $(document).ready(() => {
     $(window).on("keydown", (event) => {
         let key = keyToNum[event.code];
+        if (key === undefined) return;
         // In case the key was already flagged for removal, don't remove it
         keysToRemoveSize = removeAll(keysToRemove, keysToRemoveSize, key);
         if (!keysPressed.subarray(0, keysPressedSize).some(value => { return value == key; })) {
@@ -36,14 +37,23 @@ $(document).ready(() => {
 
 /**
  * Returns a Uint8Array where each byte corresponds to a pressed key, based on the keyToNum map in ./keyboard-code-map.js.
+ * All keys that have been pressed since this function was last called are guaranteed to be included, even if they've been
+ * released since, unless flushReleaseBuffer() has been called.
  */
 function getKeysPressed() {
     let ret = keysPressed.slice(0, keysPressedSize);
     // Now that pressed keys have been read at least once, remove keys that have been released
-    keysToRemove.forEach(key => keysPressedSize = removeAll(keysPressed, keysPressedSize, key));
+    flushReleaseBuffer();
+    return ret;
+}
+
+/**
+ * Releases keys that were released without being read.
+ */
+function flushReleaseBuffer() {
+    keysToRemove.subarray(0, keysToRemoveSize).forEach(key => keysPressedSize = removeAll(keysPressed, keysPressedSize, key));
     keysToRemoveSize = 0;
     keysNewlyPressedSize = 0;
-    return ret;
 }
 
 /**

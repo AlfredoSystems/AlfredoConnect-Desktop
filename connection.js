@@ -5,6 +5,7 @@
 //   if the disconnection happens after connecting to a new port, the UI breaks because onPortClose runs while
 //   a connection stays open. idea: use state variable like a semaphore so methods will hang until state is
 //   connected/disconnected like they expect.
+// TODO: open button should be disabled when port is open
 
 const terminal = require("./terminal.js");
 
@@ -89,10 +90,7 @@ function onPortError(err) {
 
 function onPortClose(err) {
     if (err && err.disconnected) terminal.writeErr(port.path + " disconnected.", 0, "port-disconnected");
-    else {
-        terminal.writeInfo("Connection with " + port.path + " closed.");
-        console.log("hi");
-    }
+    else terminal.writeInfo("Connection with " + port.path + " closed.");
     $("#port-close").addClass("disabled");
     $("#port-select").removeAttr("disabled");
     $("#port-select").formSelect();

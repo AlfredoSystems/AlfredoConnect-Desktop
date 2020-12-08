@@ -16,12 +16,25 @@ body {
     flex-direction: column;
 }
 
-#terminal-text {
+#terminal-window {
     max-height: inherit;
-    white-space: pre-wrap;
     padding: 0 10px;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+#terminal-text {
+    max-height: inherit;
+    white-space: pre-wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-anchor: none;
+}
+
+#terminal-scroll-anchor {
+    padding: 0px;
+    overflow-anchor: auto;
+    height: 1px;
 }
 
 #terminal-info {

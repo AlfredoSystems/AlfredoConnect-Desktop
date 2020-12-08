@@ -39,7 +39,10 @@
         <div class="row" id="terminal">
             <span id="terminal-info" style="white-space: pre-wrap"></span>
             <div id="terminal-error-container" style="white-space: pre-wrap"></div>
-            <div id="terminal-text"></div>
+            <div id="terminal-window">
+                <div id="terminal-text"></div>
+                <div id="terminal-scroll-anchor"></div>
+            </div>
         </div>
         <div class="row">
             <form class="col s12">
@@ -64,7 +67,7 @@
             </canvas>
         </div>
     </body>
-    <script>window.$ = window.jQuery = require('./js/jquery-3.4.1.min.js');</script>
+    <script>window.$ = window.jQuery = require('./js/jquery-3.5.1.js');</script> <!--TODO: Change to .min.js for release-->
     <script src="./js/materialize.min.js"></script>
     <script src="renderer.js"></script>
 </html>

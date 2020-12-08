@@ -30,9 +30,9 @@ function onPortOpen() {
     packetSender = window.setInterval(() => {
         if (connection.isOpen()) {
             let packet = packetAssembler.assemblePacket(keyboard.getPressed(), gamepads.getSorted());
-            if (packet) connection.send(packet);
+            if (packet) connection.sendEcho(packet);
         } else clearInterval(packetSender);
-    }, 1000.0 / 60.0);
+    }, 1000.0 / 60.0); // TODO: packets per second
 }
 
 $(document).ready(() => {
