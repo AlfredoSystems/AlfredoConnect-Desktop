@@ -6,10 +6,12 @@
  *   1 byte per key pressed, with keys represented as bytes as in ./keyboard-code-map.js
  *   1 byte stores number of enabled gamepads
  *   For each gamepad:
- *     1st and 2nd bytes store axis and button count, respectively
+ *     1 byte stores axis count
  *     1 byte for each axis, with -1..1 mapped to 0..255 and 127 representing 0
+ *     1 byte stores button count
  *     1 bit for each button
  *     Pad to the next byte, then begin next gamepad
+ *   1 byte is dollar sign ($, 36) for packet validation
  * 
  * NOTE: The hash symbol is included at the start of each packet so the receiver can differentiate
  * between AlfredoConnect packets and potential human input. This way, we can ensure the receiver
@@ -18,24 +20,35 @@
  * a hash symbol into the AlfredoConnect input window unless an advanced option with a warning is
  * selected.
  * 
+ * NOTE: The dollar sign is included at the end of the packet to help protect against invalid
+ * packets created by UART buffer overflows. If a sent packet is truncated by the end of the buffer
+ * and then pieces of a new packet are appended to the end once the buffer starts to clear, it
+ * could be interpreted as a real packet. Adding a dollar sign at the end means that an invalid
+ * packet might still be read, but if it doesn't end with a dollar sign in the expected location,
+ * it will be discarded. We can't get away with throwing away the packet if we see a new hash symbol
+ * mid-packet because the hash symbol can come up in the middle of a packet (# = 35).
+ * Possible failures that can still occur: if packets aren't sent atomically, a packet could be
+ * truncated, with a hash at the start, and once the buffer clears, a packet that was mid-send
+ * could be appended to it, creating an invalid packet with a starting hash and ending dollar sign.
+ * 
  * NOTE: GamepadButtons support analog buttons, like triggers, with a double GamepadButton.value,
  * but there's no way to know a button is analog until the button reads a non-integer value.
  * It seems like to support them well, every button would need to always be sent as a full byte,
  * which would blow up packet size. Therefore, the current implementation treats analog buttons
  * as digital.
  * 
- * NOTE: Behaviour undefined if keysPressed, gamepads, or the axes or buttons of any gamepad is
- * over 255.
+ * NOTE: Behaviour undefined if keysPressed, gamepads, or the axes or buttons of any gamepads have
+ * more than 255 elements.
  * 
  * @param {Uint8Array} keysPressed an array of bytes corresponding to pressed keys
  * @param {Gamepad[]} gamepads
  */
 function assemblePacket(keysPressed, gamepads) {
-    let packetLength = 3 + keysPressed.length;
+    let packetLength = 4 + keysPressed.length;
     gamepads.forEach((gamepad) => {
         packetLength += 2 + gamepad.axes.length + Math.ceil(gamepad.buttons.length / 8);
     });
-    let rawPacket = new Uint8Array(packetLength);
+    let rawPacket = [];
     let i = 0;
     rawPacket[i++] = 35; // hash symbol (#)
     rawPacket[i++] = keysPressed.length;
@@ -43,22 +56,25 @@ function assemblePacket(keysPressed, gamepads) {
     rawPacket[i++] = gamepads.length;
     gamepads.forEach((gamepad) => {
         rawPacket[i++] = gamepad.axes.length;
-        rawPacket[i++] = gamepad.buttons.length;
         gamepad.axes.forEach((axis) => {
             if (axis == 0) rawPacket[i++] = 127;
-            else rawPacket[i++] = (axis + 1) * (255 / 2);
+            else rawPacket[i++] = Math.round((axis + 1) * (255 / 2));
         });
+        rawPacket[i++] = gamepad.buttons.length;
         let bit = 0;
+        rawPacket[i] = 0;
         gamepad.buttons.forEach((button) => {
             if (button.pressed) rawPacket[i] = rawPacket[i] | (1 << bit);
             if (++bit == 8) {
                 bit = 0;
                 i++;
+                rawPacket[i] = 0;
             }
         });
         if (bit != 0) i++;
     });
-    return Buffer.from(rawPacket).toString("utf-8");
+    rawPacket[i++] = 36; // dollar sign ($)
+    return rawPacket;
 }
 
 /**

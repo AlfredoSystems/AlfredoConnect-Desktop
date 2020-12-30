@@ -16,7 +16,7 @@ let terminalTextHeight;
 function terminalWrite(str) {
     lines += str.split("\n").length - 1;
     $("#terminal-text").append(document.createTextNode(str));
-    if (lines > MAX_LINES) {
+    while (lines > MAX_LINES) {
         let removed = $("#terminal-text").contents().first(() => { return this.nodeType === 3; }).remove();
         lines -= removed.text().split("\n").length - 1;
     }

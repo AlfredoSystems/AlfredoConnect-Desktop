@@ -6,6 +6,7 @@
 //   a connection stays open. idea: use state variable like a semaphore so methods will hang until state is
 //   connected/disconnected like they expect.
 // TODO: open button should be disabled when port is open
+// TODO: automatic reconnecting
 
 const terminal = require("./terminal.js");
 
@@ -48,17 +49,22 @@ function openPort(portId, callback) {
             "port-already-open");
         return;
     } else if (port && port.isOpen) port.close();
-    if (!port || portId != port.path) {
-        port = new serialport(portId, { // TODO: baud configuration
-            autoOpen: false
-        });
-        port.on("open", () => onPortOpen(callback));
-        port.on("data", data => onPortData(data));
-        // TODO: is "readable" event better than "data"? https://serialport.io/docs/api-stream
-        port.on("error", err => onPortError(err));
-        port.on("close", err => onPortClose(err));
-        // TODO: drain event
-    }
+    
+    // Even if we're reopening the same port, we want to construct a new serialport because of the
+    // ESP32 failure described in https://github.com/espressif/arduino-esp32/issues/3657. If this
+    // deadlock happens, the serialport no longer displays new text, even after the ESP32 is hard
+    // reset, which fixes the problem ESP32-side and lets the ESP32 start sending text again.
+    // Constructing a new serialport every time means that hard resetting the ESP32, then opening
+    // and closing the connection will fix the problem.
+    port = new serialport(portId, { // TODO: baud configuration
+        autoOpen: false
+    });
+    port.on("open", () => onPortOpen(callback));
+    port.on("data", data => onPortData(data));
+    // TODO: is "readable" event better than "data"? https://serialport.io/docs/api-stream
+    port.on("error", err => onPortError(err));
+    port.on("close", err => onPortClose(err));
+    // TODO: drain event
     $("#port-select").attr("disabled", "true");
     $("#port-select").formSelect();
     terminal.writeInfo("Connecting to " + port.path + "..."); // TODO: loading indicator

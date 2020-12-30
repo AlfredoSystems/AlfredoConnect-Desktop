@@ -15,22 +15,11 @@ function onConfigLoad(config) {
     connection.open(config.port, onPortOpen);
 }
 
-// function onPortOpen() {
-//     if (!configManager.valid) return;
-//     packetSender = window.setInterval(() => {
-//         if (connection.isOpen()) {
-//             var packet = configManager.assemblePacket(gamepads.getSorted());
-//             if (packet) connection.send(packet); 
-//         }
-//         else clearInterval(packetSender);
-//     }, configManager.maxSendRate ? (1000.0 / config.maxSendRate) : 20);
-// }
-
 function onPortOpen() {
     packetSender = window.setInterval(() => {
         if (connection.isOpen()) {
             let packet = packetAssembler.assemblePacket(keyboard.getPressed(), gamepads.getSorted());
-            if (packet) connection.sendEcho(packet);
+            if (packet) connection.send(packet); // TODO: option for send echo? maybe not, probably not useful
         } else clearInterval(packetSender);
     }, 1000.0 / 60.0); // TODO: packets per second
 }

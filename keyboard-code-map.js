@@ -57,7 +57,7 @@ const keyToNum = {
     Minus:                 45,
     Period:                46,
     Quote:                 47,
-    Semicolon:             48,   
+    Semicolon:             48,
     Slash:                 49,
 
     // Functional
