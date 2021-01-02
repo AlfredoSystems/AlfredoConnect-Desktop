@@ -21,7 +21,7 @@
       "target": [
         "dmg"
       ],
-      "icon": "alfredo.ico",
+      "icon": "alfredo.icns",
       "identity": "Alfredo Electronics",
       "type": "distribution"
     },
@@ -32,7 +32,7 @@
       "uninstallerIcon": "alfredo.ico"
     },
     "dmg": {
-      "icon": "alfredo.ico"
+      "icon": "alfredo.icns"
     }
   },
   "repository": {
