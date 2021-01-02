@@ -61,6 +61,25 @@ body {
     background-color: #f88;
 }
 
+#terminal-input-container {
+    margin: 0 50px;
+    padding: 0;
+}
+
+#terminal-input-form {
+    padding: 0 0 0 10px;
+    margin-bottom: 0;
+    background-color: #444;
+}
+
+#terminal-input {
+    margin: 0;
+}
+
+#terminal-send {
+    height: 60px;
+}
+
 .materialize-textarea {
     color: #fff;
 }

@@ -1,11 +1,28 @@
 {
   "name": "alfredoconnect",
+  "productName": "AlfredoConnect",
   "version": "0.0.1",
   "description": "Driver station for Bluetooth serial communication.",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-installer": "electron-builder"
+  },
+  "build": {
+    "appId": "AlfredoConnect",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "alfredo.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "alfredo.ico",
+      "uninstallerIcon": "alfredo.ico"
+    }
   },
   "repository": {
     "type": "git",
@@ -20,12 +37,13 @@
   "devDependencies": {
     "electron": "^8.1.1",
     "electron-rebuild": "^1.10.1",
-    "jquery-sortablejs": "^1.0.1"
+    "electron-builder": "^22.9.1"
   },
   "dependencies": {
     "jquery": "^3.4.1",
     "materialize-css": "^1.0.0",
     "serialport": "^8.0.7",
-    "sortablejs": "^1.10.2"
+    "sortablejs": "^1.10.2",
+    "jquery-sortablejs": "^1.0.1"
   }
 }

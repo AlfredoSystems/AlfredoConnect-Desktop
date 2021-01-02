@@ -3,6 +3,7 @@
 // TODO or maybe being able to edit the previous line (loading bars etc)
 // TODO: hash symbol (#) shouldn't be allowed to be typed into terminal without selecting an option
 // TODO: right click on terminal for clear output
+// TODO: input bar should only come up after right click menu, should disable packet sending
 
 let lines = 0;
 const MAX_LINES = 200; // TODO: make this configurable with a performance warning

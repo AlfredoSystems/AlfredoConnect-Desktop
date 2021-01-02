@@ -24,7 +24,7 @@
                     <i class="material-icons">refresh</i>
                 </button>
             </div>
-            <form action="#" class="offset-s1 col s4">
+            <!-- <form action="#" class="offset-s1 col s4">
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>File</span>
@@ -34,7 +34,7 @@
                         <input class="file-path validate" type="text">
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
         <div class="row" id="terminal">
             <span id="terminal-info" style="white-space: pre-wrap"></span>
@@ -44,17 +44,15 @@
                 <div id="terminal-scroll-anchor"></div>
             </div>
         </div>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s11">
+        <div id="terminal-input-container" class="row" style="display: none">
+            <form id="terminal-input-form" class="col s12">
+                    <div class="input-field col s11" style="padding:0; margin-bottom:0">
                         <textarea id="terminal-input" class="materialize-textarea"></textarea>
                         <label for="terminal-input">Input</label>
                     </div>
                     <a class="btn-large waves-effect waves-teal col s1" id="terminal-send">
                         send<i class="material-icons right">send</i>
                     </a>
-                </div>
             </form>
         </div>
         <div class="row">

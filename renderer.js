@@ -4,16 +4,16 @@ const gamepads = require("./gamepads.js");
 const keyboard = require("./keyboard.js");
 const terminal = require("./terminal.js");
 const connection = require("./connection.js");
-const configManager = require("./config-manager.js");
+// const configManager = require("./config-manager.js");
 const packetAssembler = require("./packet-assembler.js");
 
 require("jquery-sortablejs");
 
 let packetSender = null;
 
-function onConfigLoad(config) {
-    connection.open(config.port, onPortOpen);
-}
+// function onConfigLoad(config) {
+//     connection.open(config.port, onPortOpen);
+// }
 
 function onPortOpen() {
     packetSender = window.setInterval(() => {
@@ -32,7 +32,7 @@ $(document).ready(() => {
     $("#port-select").on("change", () => terminal.clearError("port-open-null"));
     $("#port-open").click(() => connection.open($("#port-select").val(), onPortOpen));
     $("#port-close").click(connection.close);
-    $("#config-file").on("input", () => configManager.read(onConfigLoad));
+    // $("#config-file").on("input", () => configManager.read(onConfigLoad));
     $("#terminal-input").keydown((e) => {
         if (e.keyCode == 13 && !e.shiftKey) {
             e.preventDefault();    
