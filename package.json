@@ -51,7 +51,7 @@
     "electron-builder": "^22.9.1"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-sortablejs": "^1.0.1",
     "materialize-css": "^1.0.0",
     "serialport": "^8.0.7",
