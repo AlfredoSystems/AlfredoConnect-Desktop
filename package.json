@@ -17,11 +17,22 @@
       ],
       "icon": "alfredo.ico"
     },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "alfredo.ico",
+      "identity": "Alfredo Electronics",
+      "type": "distribution"
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "installerIcon": "alfredo.ico",
       "uninstallerIcon": "alfredo.ico"
+    },
+    "dmg": {
+      "icon": "alfredo.ico"
     }
   },
   "repository": {
@@ -41,9 +52,9 @@
   },
   "dependencies": {
     "jquery": "^3.4.1",
+    "jquery-sortablejs": "^1.0.1",
     "materialize-css": "^1.0.0",
     "serialport": "^8.0.7",
-    "sortablejs": "^1.10.2",
-    "jquery-sortablejs": "^1.0.1"
+    "sortablejs": "^1.10.2"
   }
 }
