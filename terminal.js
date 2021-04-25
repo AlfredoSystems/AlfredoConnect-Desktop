@@ -3,7 +3,7 @@
 // TODO or maybe being able to edit the previous line (loading bars etc)
 // TODO: hash symbol (#) shouldn't be allowed to be typed into terminal without selecting an option
 // TODO: right click on terminal for clear output
-// TODO: input bar should only come up after right click menu, should disable packet sending
+// TODO: input bar should come up after right click menu, should disable packet sending
 
 let lines = 0;
 const MAX_LINES = 200; // TODO: make this configurable with a performance warning
@@ -11,9 +11,8 @@ const MAX_LINES = 200; // TODO: make this configurable with a performance warnin
 let terminalTextHeight;
 
 // TODO: scroll to bottom button (bottom right of terminal, floating circle button) only when not at bottom
-// TODO: doesn't seem like there's any way to make autoscrolling performant for the size that the terminal-text
-// div is going to grow to. probably means we need to start throwing out old text at some point instead of keeping
-// it all. profile to figure out how big the div can grow before old lines should be removed.
+// TODO: terminal currently has 200 lines of scrollback for performance reasons. first improvement is to allow log
+// files for sessions, then look more into improving scrollback performance.
 function terminalWrite(str) {
     lines += str.split("\n").length - 1;
     $("#terminal-text").append(document.createTextNode(str));

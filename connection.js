@@ -21,7 +21,6 @@ const States = {
 
 let state = States.CONNECTED;
 let port = null;
-let timePortOpened = null; // TODO get em ouuta here
 
 function updatePortList() {
     return serialport.list().then(ports => {
@@ -81,7 +80,6 @@ function onPortOpen(callback) {
         $("#port-select").formSelect();
     });
     terminal.writeInfo("Connection with " + port.path + " opened.");
-    timePortOpened = Date.now();
     state = States.CONNECTED;
     if (callback) callback();
 }
@@ -129,17 +127,11 @@ function isPortOpen() {
     return false;
 }
 
-function getTimeSincePortOpened() {
-    if (timePortOpened === null) return null;
-    else return Date.now() - timePortOpened;
-}
-
 module.exports = {
     updateList: updatePortList,
     open: openPort,
     close: closePort,
     send: send,
     sendEcho: sendEcho,
-    isOpen: isPortOpen,
-    getTimeSinceOpened: getTimeSincePortOpened
+    isOpen: isPortOpen
 }
