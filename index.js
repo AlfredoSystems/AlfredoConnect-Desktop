@@ -1,11 +1,13 @@
 const {app, BrowserWindow} = require("electron");
 
 function createWindow() {
+    app.allowRendererProcessReuse = false;
     let win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
     win.loadFile("index.html");

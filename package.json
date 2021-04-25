@@ -46,15 +46,15 @@
   },
   "homepage": "https://github.com/AlfredoElectronics/AlfredoConnect-Desktop#readme",
   "devDependencies": {
-    "electron": "^8.1.1",
-    "electron-rebuild": "^1.10.1",
-    "electron-builder": "^22.9.1"
+    "electron": "^12.0.5",
+    "electron-builder": "^22.10.5",
+    "electron-rebuild": "^1.11.0"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.6.0",
     "jquery-sortablejs": "^1.0.1",
     "materialize-css": "^1.0.0",
-    "serialport": "^8.0.7",
-    "sortablejs": "^1.10.2"
+    "serialport": "^8.0.8",
+    "sortablejs": "^1.13.0"
   }
 }
