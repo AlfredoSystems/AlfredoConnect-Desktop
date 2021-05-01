@@ -1,17 +1,43 @@
+html {
+    height: 100%;
+}
+
 body {
-    background-color: #333;
+    height: 100%;
+    background-color: #444;
     color: #fff;
+}
+
+.container {
+    background-color: #333;
+    height: 100%;
+}
+
+.row {
+    margin: auto 25px;
+}
+
+.row .col {
+    padding: 0;
 }
 
 .collection .collection-item {
     background-color: #666;
 }
 
+#serial-port-dropdown {
+    padding: 0 0.75em;
+}
+
+.select-wrapper input.select-dropdown:disabled, .select-wrapper.disabled+label {
+    color: #999
+}
+
 #terminal {
     height: 500px;
     background-color: #000;
     font-family: "Courier New";
-    margin: 0 50px;
+    margin: 0 25px;
     display: flex;
     flex-direction: column;
 }

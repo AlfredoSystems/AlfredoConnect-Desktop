@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Update Available</title>
+        <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+        <link rel="stylesheet" href="./css/materialize.min.css">
+        <link rel="stylesheet" href="./download.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row" style="font-size: medium;">
+            <img src="alfredo.ico" alt="Alfredo Electronics logo" style="float: left; max-width: 60px; padding: 10px;">
+            An update is available! You are currently on <span id="download-new-version"></span>,
+            and the update is <span id="download-current-version"></span>.
+            Would you like to update?
+        </div>
+        <div class="row">
+            <a class="btn waves-effect waves-teal col s4" id="update-now-button">
+                Update Now
+            </a>
+            <a class="btn waves-effect waves-teal col s4" id="update-on-quit-button">
+                Update On Quit
+            </a>
+            <a class="btn waves-effect waves-light red darken-4 col s4" id="dont-update-button">
+                Don't Update
+            </a>
+
+            <div class="progress" id="download-progress-wrapper" style="height: 0; margin-bottom: 0;">
+                <div class="determinate" id="download-progress" width="0%"></div>
+            </div>
+            <!-- <span id="download-progress" hidden style="display: table; margin: 0 auto;"></span> -->
+        </div>
+    </body>
+    <script>
+        // https://www.electronjs.org/docs/faq#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+    </script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script src="download.js"></script>
+    <script src="./js/materialize.min.js"></script>
+</html>

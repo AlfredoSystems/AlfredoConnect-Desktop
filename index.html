@@ -6,14 +6,15 @@
         <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
         <link rel="stylesheet" href="./css/materialize.min.css">
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./index.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <div class="row" style="margin-top: 25px">
-            <button class="btn-large waves-effect waves-light col s1" id="port-open" style="margin-left: 25px">open</button>
-            <button class="btn-large waves-effect waves-light disabled col s1" id="port-close">close</button>
-            <div class="input-field col s3" style="margin-bottom: 0">
+        <div class="container">
+        <div class="row" style="padding-top: 25px">
+            <button class="btn-large waves-effect waves-light col s1" id="port-open">Open</button>
+            <button class="btn-large waves-effect waves-light disabled col s1" id="port-close">Close</button>
+            <div class="input-field col s3" id="serial-port-dropdown" style="margin-bottom: 0">
                 <select id="port-select">
                     <option value="default" disabled selected>Select port...</option>
                 </select>
@@ -24,17 +25,6 @@
                     <i class="material-icons">refresh</i>
                 </button>
             </div>
-            <!-- <form action="#" class="offset-s1 col s4">
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span>File</span>
-                        <input type="file" id="config-file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
-                </div>
-            </form> -->
         </div>
         <div class="row" id="terminal">
             <span id="terminal-info" style="white-space: pre-wrap"></span>
@@ -64,8 +54,16 @@
             <canvas id="gamepad-state">
             </canvas>
         </div>
+        </div>
     </body>
-    <script>window.$ = window.jQuery = require('./js/jquery-3.5.1.js');</script> <!--TODO: Change to .min.js for release-->
+    <script>
+        // https://www.electronjs.org/docs/faq#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.exports;
+        delete window.module;
+    </script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script src="./js/materialize.min.js"></script>
     <script src="renderer.js"></script>
 </html>

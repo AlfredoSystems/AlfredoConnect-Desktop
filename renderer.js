@@ -1,13 +1,13 @@
 // TODO: small window has horizontal scroll bar when not needed
 
-const gamepads = require("./gamepads.js");
-const keyboard = require("./keyboard.js");
-const terminal = require("./terminal.js");
-const connection = require("./connection.js");
-// const configManager = require("./config-manager.js");
-const packetAssembler = require("./packet-assembler.js");
+const gamepads = nodeRequire("./gamepads.js");
+const keyboard = nodeRequire("./keyboard.js");
+const terminal = nodeRequire("./terminal.js");
+const connection = nodeRequire("./connection.js");
+// const configManager = nodeRequire("./config-manager.js");
+const packetAssembler = nodeRequire("./packet-assembler.js");
 
-require("jquery-sortablejs");
+nodeRequire("jquery-sortablejs");
 
 let packetSender = null;
 
@@ -24,28 +24,31 @@ function onPortOpen() {
     }, 1000.0 / 60.0); // TODO: packets per second
 }
 
-$(document).ready(() => {
+$(() => {
     window.setInterval(gamepads.renderState, 20);
     connection.updateList();
     gamepads.update();
-    $("#port-refresh").click(connection.updateList);
+    $("#port-refresh").on("click", connection.updateList);
     $("#port-select").on("change", () => terminal.clearError("port-open-null"));
-    $("#port-open").click(() => connection.open($("#port-select").val(), onPortOpen));
-    $("#port-close").click(connection.close);
+    $("#port-open").on("click", () => connection.open($("#port-select").val(), onPortOpen));
+    $("#port-close").on("click", connection.close);
     // $("#config-file").on("input", () => configManager.read(onConfigLoad));
-    $("#terminal-input").keydown((e) => {
-        if (e.keyCode == 13 && !e.shiftKey) {
+    $("#terminal-input").on("keydown", (e) => {
+        if (e.key == "Enter" && !e.shiftKey) {
             e.preventDefault();    
             connection.sendEcho(terminal.getInput());
             terminal.clearInput();
         }
     });
-    $("#terminal-send").click(() => {
+    $("#terminal-send").on("click", () => {
         connection.sendEcho(terminal.getInput()); // TODO: terminal sending should have option delimiter
         terminal.clearInput();
     });
     $("#gamepad-list").sortable();
     $(window).on("gamepadconnected", gamepads.update);
     $(window).on("gamepaddisconnected", gamepads.update);
-    $(window).on("resize", () => $("#gamepad-list").children().css("max-width", $("#gamepad-list").css("width")));
+    $(window).on("resize", () => {
+        $("#gamepad-list").children().css("max-width", $("#gamepad-list").css("width"));
+        $("html").height(Math.max($(window).height(), $(document).height()) + "px");
+    });
 });

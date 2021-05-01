@@ -1,7 +1,7 @@
 {
   "name": "alfredoconnect",
   "productName": "AlfredoConnect",
-  "version": "v0.0.2-beta",
+  "version": "v0.0.1-gamma",
   "description": "Driver station for serial communication.",
   "main": "index.js",
   "scripts": {
@@ -17,14 +17,16 @@
     },
     "files": [
       "!.gh_token",
-      "!**/dist/*"
+      "!**/dist/*",
+      "!dev-app-update.yml"
     ],
     "win": {
+      "requestedExecutionLevel": "highestAvailable",
       "publish": [
         {
           "provider": "github",
-          "owner": "Dinokaiz2",
-          "repo": "git-testing"
+          "owner": "AlfredoElectronics",
+          "repo": "AlfredoConnect-Desktop"
         }
       ],
       "target": [
