@@ -1,5 +1,6 @@
 // TODO: gamepad button/axis display doesn't go away when controller disconnects
 // TODO: right-click menu on gamepad list to allow enabling/disabling sending controllers
+// TODO: show display for first gamepad when it connects
 
 function getGamepads() {
     return Array.from(navigator.getGamepads()).filter(gamepad => gamepad);

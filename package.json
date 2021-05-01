@@ -1,17 +1,32 @@
 {
   "name": "alfredoconnect",
   "productName": "AlfredoConnect",
-  "version": "0.0.1",
-  "description": "Driver station for Bluetooth serial communication.",
+  "version": "v0.0.2-beta",
+  "description": "Driver station for serial communication.",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-installer": "electron-builder"
+    "draft-release": "set /p GH_TOKEN= < .gh-token && electron-builder --publish always",
+    "package": "electron-builder"
   },
   "build": {
     "appId": "AlfredoConnect",
+    "artifactName": "${productName}-setup-${version}.${ext}",
+    "directories": {
+      "output": "dist/${version}/${platform}"
+    },
+    "files": [
+      "!.gh_token",
+      "!**/dist/*"
+    ],
     "win": {
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "Dinokaiz2",
+          "repo": "git-testing"
+        }
+      ],
       "target": [
         "nsis"
       ],
@@ -37,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlfredoElectronics/AlfredoConnect-Desktop.git"
+    "url": "git+https://github.com/Dinokaiz2/git-testing.git"
   },
   "author": "Kaiz Akhtar",
   "license": "GPL-3.0",
@@ -51,6 +66,8 @@
     "electron-rebuild": "^1.11.0"
   },
   "dependencies": {
+    "electron-log": "^4.3.4",
+    "electron-updater": "^4.3.8",
     "jquery": "^3.6.0",
     "jquery-sortablejs": "^1.0.1",
     "materialize-css": "^1.0.0",

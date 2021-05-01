@@ -48,7 +48,7 @@ function assemblePacket(keysPressed, gamepads) {
     gamepads.forEach((gamepad) => {
         packetLength += 2 + gamepad.axes.length + Math.ceil(gamepad.buttons.length / 8);
     });
-    let rawPacket = [];
+    let rawPacket = new Uint8Array(packetLength);
     let i = 0;
     rawPacket[i++] = 35; // hash symbol (#)
     rawPacket[i++] = keysPressed.length;
