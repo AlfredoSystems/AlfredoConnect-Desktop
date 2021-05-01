@@ -1,7 +1,7 @@
 {
   "name": "alfredoconnect",
   "productName": "AlfredoConnect",
-  "version": "v0.1.0-beta",
+  "version": "v0.1.1-beta",
   "description": "Driver station for serial communication.",
   "main": "index.js",
   "scripts": {
