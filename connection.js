@@ -56,8 +56,7 @@ function openPort(portId, callback) {
     // Constructing a new serialport every time means that hard resetting the ESP32, then opening
     // and closing the connection will fix the problem.
     port = new serialport(portId, { // TODO: baud configuration
-        autoOpen: false,
-        baudRate: 115200
+        autoOpen: false
     });
     port.on("open", () => onPortOpen(callback));
     port.on("data", data => onPortData(data));
