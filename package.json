@@ -63,7 +63,7 @@
   },
   "homepage": "https://github.com/AlfredoElectronics/AlfredoConnect-Desktop#readme",
   "devDependencies": {
-    "electron": "^12.0.5",
+    "electron": "^13.6.6",
     "electron-builder": "^22.10.5",
     "electron-rebuild": "^1.11.0"
   },
